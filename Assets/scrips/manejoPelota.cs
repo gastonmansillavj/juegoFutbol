@@ -26,10 +26,10 @@ public class manejoPelota : MonoBehaviour
     private void OnCollisionEnter(Collision personaje)
     {
 
-        print("entro en colision");
+       // print("entro en colision");
         //GetComponent<Rigidbody>().AddForce(0,1000f,0);
         angulo = personaje.gameObject.GetComponent<movimientoConFisicas>().angulo;
-        print(angulo);
+     //   print(angulo);
         xcomponent = Mathf.Cos(angulo * Mathf.PI / 180) * 10f;
         ycomponent = Mathf.Sin(angulo * Mathf.PI / 180) * 10f;
         GetComponent<Rigidbody>().AddForce(xcomponent  * velocidadmovimiento, 0,ycomponent  * velocidadmovimiento, ForceMode.Force);

@@ -5,11 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class enemigoPasaEscena : MonoBehaviour
 {
+    public Animator personajePrincipal;
+    public GameObject manejadorEscenas;
+    public int NivelActual;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "pelotaFisica")
         {
-            SceneManager.LoadScene(2);
+            personajePrincipal.SetBool("parado", false);
+            personajePrincipal.SetBool("corre", false);
+            manejadorEscenas.GetComponent<ManejadorDeEscenas>().GuardaScena(NivelActual);
+            manejadorEscenas.GetComponent<ManejadorDeEscenas>().cambiaEscena(2);
+
+
         }
        
     }

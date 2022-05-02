@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,17 @@ public class personajeQueSigue : MonoBehaviour
     GameObject personajeAnimacion;
     bool paso= false;
 
+    // particulas 
+    [SerializeField] ParticleSystem ParticulasPiesEnemigo;
+
+    /// 
+
     void Start()
     {
         jugador=GetComponent<NavMeshAgent>();
         animacionEnemigo=GetComponent<Animator>();
         personajeAnimacion = transform.GetChild(0).gameObject;
+        ParticulasPiesEnemigo.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -34,6 +41,8 @@ public class personajeQueSigue : MonoBehaviour
             jugador.SetDestination(new Vector3(objetivo.transform.position.x, -4f, objetivo.transform.position.z));
             Invoke("jugadorBaja",0.30f);
             Invoke("enemigoDetenido",1);
+            Invoke("levantaTierra", 0.3f);
+            
             
 
 
@@ -57,10 +66,14 @@ public class personajeQueSigue : MonoBehaviour
 
     }
 
+    private void levantaTierra()
+    {
+        ParticulasPiesEnemigo.gameObject.SetActive(true);
+    }
 
     void jugadorBaja ()
     {
-        personajeAnimacion.transform.localPosition = new Vector3(0, -2f, 0);
+        personajeAnimacion.transform.localPosition = new Vector3(0, -2f, -2);
     }
 
 

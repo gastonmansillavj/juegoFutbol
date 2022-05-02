@@ -2,30 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ControlDePuntos : MonoBehaviour
 {
     
     public Text Monedas;
+    
     public int monedas;
-    public GameObject Jugador;
-    public GameObject monedasFisicas;
+    public int monedaLocal = 0;
    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        CargaMonedas();
-      
-    }
     private void Update()
     {
-    
-        Monedas.text = monedas.ToString();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            CargaMonedas();
+            Monedas.text = monedas.ToString();
+
+        }
+        else
+        {
+            CargaMonedas();
+            Monedas.text = monedaLocal.ToString();
+        }
+        
+              
     }
+
     public void sumaMonedas()
     {
-        monedas++;
+        monedaLocal++;
     }
 
     private void OnDestroy()
@@ -35,12 +42,16 @@ public class ControlDePuntos : MonoBehaviour
 
     public void GuardaMonedas ()
     {
+        monedas = monedas+monedaLocal;
+       
         PlayerPrefs.SetInt("Monedas",monedas); 
     }
 
     public void CargaMonedas()
     {
         monedas = PlayerPrefs.GetInt("Monedas",0);
+        
+
     }
 
     
